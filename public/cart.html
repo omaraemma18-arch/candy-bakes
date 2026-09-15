@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Basket | Sugarhouse Bakery</title>
+<meta name="description" content="Review your cake order before checking out.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <section class="section">
+    <div class="wrap">
+      <div id="emptyCart" class="empty-state" style="display:none;">
+        <h2>Your basket is empty</h2>
+        <p>Pick a cake and set it up how you'd like it.</p>
+        <a href="/menu" class="btn btn-primary">See the cakes</a>
+      </div>
+      <div id="cartContent" style="display:none;">
+        <div class="section-head">
+          <h1>Your basket</h1>
+          <p>Check the details — this is exactly what reaches the kitchen.</p>
+        </div>
+        <div class="checkout-layout">
+          <div>
+            <div id="cartItems"></div>
+            <p style="margin-top:24px;"><a href="/menu" style="color:var(--raspberry);font-weight:600;">＋ Add another cake</a></p>
+          </div>
+          <aside class="panel summary-panel">
+            <h2>Summary</h2>
+            <div class="summary-line"><span>Items</span><strong id="sumCount">0</strong></div>
+            <div class="summary-line"><span>Subtotal</span><strong id="sumSubtotal">—</strong></div>
+            <div class="summary-line" style="font-size:.84rem;"><span>Delivery is worked out at checkout.</span></div>
+            <div class="summary-total"><span>Subtotal</span><span id="sumTotal">—</span></div>
+            <a href="/checkout" class="btn btn-primary btn-block" style="margin-top:18px;">Go to checkout</a>
+            <p style="font-size:.83rem;color:var(--muted);margin:13px 0 0;text-align:center;">Earliest date: <strong id="earliestDate">—</strong></p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="/js/app.js"></script>
+<script src="/js/partials.js"></script>
+<script src="/js/cart.js"></script>
+</body>
+</html>

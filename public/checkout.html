@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | Sugarhouse Bakery</title>
+<meta name="description" content="Confirm your collection or delivery details and place your cake order.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="section">
+    <div class="wrap">
+
+      <div id="emptyCart" class="empty-state" style="display:none;">
+        <h2>There's nothing to check out</h2>
+        <p>Your basket is empty.</p>
+        <a href="/menu" class="btn btn-primary">See the cakes</a>
+      </div>
+
+      <div id="checkoutContent" style="display:none;">
+        <div class="section-head">
+          <h1>Checkout</h1>
+          <p>Tell us where this is going and when you need it.</p>
+        </div>
+
+        <div class="alert alert-error" id="formAlert"></div>
+
+        <form id="checkoutForm" novalidate>
+          <div class="checkout-layout">
+            <div>
+              <div class="panel">
+                <h2>Your details</h2>
+                <div class="field-row">
+                  <div class="field" data-field="name">
+                    <label for="name">Full name</label>
+                    <input type="text" class="control" id="name" autocomplete="name">
+                    <div class="field-error">Enter your name.</div>
+                  </div>
+                  <div class="field" data-field="phone">
+                    <label for="phone">Phone number</label>
+                    <input type="tel" class="control" id="phone" autocomplete="tel" placeholder="07XX XXX XXX">
+                    <div class="field-error">We need a number to confirm your order.</div>
+                  </div>
+                </div>
+                <div class="field" data-field="email">
+                  <label for="email">Email</label>
+                  <input type="email" class="control" id="email" autocomplete="email">
+                  <div class="field-error">Enter a valid email address.</div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <h2>Collection or delivery</h2>
+                <div class="field">
+                  <div class="pill-group">
+                    <label class="pill">
+                      <input type="radio" name="fulfilment" value="pickup" checked>
+                      <span class="pill-text"><strong>Collect from us</strong><span>Bukoto Street — free</span></span>
+                    </label>
+                    <label class="pill">
+                      <input type="radio" name="fulfilment" value="delivery">
+                      <span class="pill-text"><strong>Deliver to me</strong><span>Kampala — UGX 15,000</span></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field" id="addressField" data-field="address" style="display:none;">
+                  <label for="address">Delivery address</label>
+                  <textarea class="control" id="address" placeholder="Street, building, area, and a landmark that helps us find you"></textarea>
+                  <div class="field-error">Tell us where to bring it.</div>
+                </div>
+
+                <div class="field-row">
+                  <div class="field" data-field="date">
+                    <label for="date">Date you need it</label>
+                    <input type="date" class="control" id="date">
+                    <div class="field-error" id="dateError">Choose a date.</div>
+                  </div>
+                  <div class="field" data-field="timeWindow">
+                    <label for="timeWindow">Preferred time</label>
+                    <select class="control" id="timeWindow">
+                      <option value="">Choose a time</option>
+                      <option>Morning (9am – 12pm)</option>
+                      <option>Afternoon (12pm – 3pm)</option>
+                      <option>Late afternoon (3pm – 6pm)</option>
+                    </select>
+                    <div class="field-error">Pick a time window.</div>
+                  </div>
+                </div>
+
+                <div class="alert alert-info show" id="leadInfo" style="margin-bottom:0;"></div>
+              </div>
+
+              <div class="panel">
+                <h2>Payment</h2>
+                <div class="pill-group">
+                  <label class="pill">
+                    <input type="radio" name="payment" value="mobile-money" checked>
+                    <span class="pill-text"><strong>Mobile money</strong><span>We send a prompt to confirm</span></span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="payment" value="on-collection">
+                    <span class="pill-text"><strong>Pay on collection</strong><span>Cash or card at the shop</span></span>
+                  </label>
+                </div>
+                <p style="font-size:.85rem;color:var(--muted);margin:14px 0 0;">
+                  We confirm every order by phone before baking. Nothing is charged until we've spoken to you.
+                </p>
+              </div>
+            </div>
+
+            <aside class="panel summary-panel">
+              <h2>Your order</h2>
+              <div id="summaryItems"></div>
+              <div class="summary-line" style="margin-top:14px;"><span>Subtotal</span><strong id="sumSubtotal">—</strong></div>
+              <div class="summary-line"><span>Delivery</span><strong id="sumDelivery">Not needed</strong></div>
+              <div class="summary-total"><span>Total</span><span id="sumTotal">—</span></div>
+              <button type="submit" class="btn btn-primary btn-block" style="margin-top:18px;" id="placeBtn">Place order</button>
+              <p style="font-size:.81rem;color:var(--muted);margin:13px 0 0;text-align:center;">
+                You'll get a reference number and a call from us.
+              </p>
+            </aside>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="/js/app.js"></script>
+<script src="/js/partials.js"></script>
+<script src="/js/checkout.js"></script>
+</body>
+</html>
