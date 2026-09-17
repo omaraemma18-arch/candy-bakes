@@ -29,6 +29,7 @@
   }
 
   document.title = `${product.name} | Sugarhouse Bakery`;
+  Partials.renderWhatsApp(`Hi! I'm interested in the ${product.name} (${window.location.href}).`);
   document
     .querySelector('meta[name="description"]')
     ?.setAttribute('content', product.description.slice(0, 155));

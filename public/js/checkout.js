@@ -16,6 +16,9 @@
   }
   document.getElementById('checkoutContent').style.display = 'block';
 
+  const itemNames = cart.map((i) => i.name).join(', ');
+  Partials.renderWhatsApp(`Hi! I'm about to order ${itemNames} and had a quick question before I check out.`);
+
   const form = document.getElementById('checkoutForm');
   const formAlert = document.getElementById('formAlert');
   const addressField = document.getElementById('addressField');

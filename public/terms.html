@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms &amp; Conditions | Sugarhouse Bakery</title>
+<meta name="description" content="Terms and conditions for ordering custom cakes from Sugarhouse Bakery.">
+<link rel="canonical" href="/terms">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  .legal { max-width: 760px; }
+  .legal h2 { font-size: 1.25rem; margin-top: 2em; }
+  .legal p, .legal li { color: var(--muted); font-size: .96rem; }
+  .legal ul { padding-left: 1.2em; }
+  .legal .updated { font-size: .85rem; color: var(--muted); margin-bottom: 2em; }
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<main>
+  <section class="section">
+    <div class="wrap">
+      <div class="legal">
+        <h1>Terms &amp; Conditions</h1>
+        <p class="updated">Last updated: <span id="updatedDate"></span></p>
+
+        <p>
+          These terms apply to every order placed with Sugarhouse Bakery,
+          whether through this website, by phone, or in person. Placing an
+          order means you agree to them.
+        </p>
+
+        <h2>1. Orders &amp; confirmation</h2>
+        <p>
+          An order is only confirmed once we've contacted you by phone to
+          go over the details — flavour, size, design and date. Submitting
+          the checkout form is a request, not a guaranteed booking, until
+          that call happens.
+        </p>
+
+        <h2>2. Lead times</h2>
+        <p>
+          Each cake has a minimum notice period shown on its product page.
+          We can't guarantee orders placed with less notice than that,
+          even if the website allows the date to be selected.
+        </p>
+
+        <h2>3. Payment</h2>
+        <ul>
+          <li>Mobile money orders are confirmed once payment is received.</li>
+          <li>Orders paid on collection are held until the stated pickup time; uncollected orders may be released after 24 hours.</li>
+          <li>Prices are in Ugandan Shillings (UGX) and may change without notice for orders not yet confirmed.</li>
+        </ul>
+
+        <h2>4. Cancellations &amp; changes</h2>
+        <p>
+          Let us know as early as possible if you need to cancel or change
+          an order. Because ingredients are bought and work often begins
+          days in advance, cancellations made less than 48 hours before
+          collection or delivery may not be refundable.
+        </p>
+
+        <h2>5. Allergens</h2>
+        <p>
+          Our kitchen bakes with wheat, eggs, dairy and nuts, and we can't
+          guarantee any product is free of allergen traces. Please tell us
+          about allergies or intolerances in the order notes before we
+          confirm your cake, and always ask if you're unsure.
+        </p>
+
+        <h2>6. Delivery &amp; collection</h2>
+        <p>
+          Delivery is available within Kampala for the fee shown at
+          checkout. We'll do our best to arrive within the time window you
+          choose, but traffic and weather can affect exact timing. Please
+          make sure someone is available to receive the cake — we can't be
+          responsible for a cake left unrefrigerated after delivery.
+        </p>
+
+        <h2>7. Cake care</h2>
+        <p>
+          Our cakes are best kept refrigerated and consumed within the
+          timeframe we advise at handover. We're not able to take
+          responsibility for a cake once it has left our kitchen or our
+          delivery driver's hands.
+        </p>
+
+        <h2>8. Photography</h2>
+        <p>
+          We sometimes photograph finished cakes for our own marketing,
+          including this website and our social media. If you'd rather we
+          didn't share photos of your cake, just let us know when ordering.
+        </p>
+
+        <h2>9. Contact</h2>
+        <p>
+          Questions about an order or these terms — <a href="tel:+256700000000" style="color:var(--raspberry);font-weight:600;">+256 700 000 000</a>
+          or <a href="mailto:orders@sugarhouse.example" style="color:var(--raspberry);font-weight:600;">orders@sugarhouse.example</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="/js/app.js"></script>
+<script src="/js/partials.js"></script>
+<script>
+  Partials.renderHeader();
+  Partials.renderFooter();
+  Partials.renderWhatsApp("Hi! I have a question about your terms and conditions.");
+  document.getElementById('updatedDate').textContent =
+    new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+</script>
+</body>
+</html>

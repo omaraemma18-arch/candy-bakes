@@ -1,6 +1,7 @@
 (function () {
   Partials.renderHeader('menu');
   Partials.renderFooter();
+  Partials.renderWhatsApp();
 
   const { api, formatUGX, escapeHtml } = window.App;
   const area = document.getElementById('menuArea');

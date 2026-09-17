@@ -15,10 +15,12 @@
     document.getElementById('confirmIntro').textContent =
       "If you've just ordered, we've got it — check your email for the details.";
     detailsEl.style.display = 'none';
+    Partials.renderWhatsApp();
     return;
   }
 
   document.getElementById('orderRef').textContent = order.reference;
+  Partials.renderWhatsApp(`Hi! I just placed order ${order.reference} and had a question about it.`);
 
   const items = order.items.map((i) => {
     const bits = [i.size, i.flavour].filter(Boolean).map(escapeHtml).join(' · ');

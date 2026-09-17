@@ -1,6 +1,7 @@
 (function () {
   Partials.renderHeader();
   Partials.renderFooter();
+  Partials.renderWhatsApp();
 
   const {
     formatUGX, escapeHtml, getCart, removeFromCart, setQuantity,

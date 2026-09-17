@@ -73,6 +73,7 @@ app.get('/product', page('product.html'));
 app.get('/cart', page('cart.html'));
 app.get('/checkout', page('checkout.html'));
 app.get('/confirmation', page('confirmation.html'));
+app.get('/terms', page('terms.html'));
 
 app.get('/admin', page('admin/login.html'));
 app.get('/admin/dashboard', page('admin/dashboard.html'));
