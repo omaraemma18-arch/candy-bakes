@@ -10,7 +10,7 @@ const storage = multer.memoryStorage();
 
 const upload = multer({
   storage,
-  limits: { fileSize: MAX_FILE_BYTES, files: 1 },
+  limits: { fileSize: MAX_FILE_BYTES, files: 8 },
   fileFilter(req, file, cb) {
     if (!ALLOWED.includes(file.mimetype)) {
       return cb(new Error('Upload a JPG, PNG, WEBP or HEIC image.'));

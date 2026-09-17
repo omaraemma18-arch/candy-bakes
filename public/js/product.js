@@ -28,7 +28,7 @@
     return;
   }
 
-  document.title = `${product.name} | Sugarhouse Bakery`;
+  document.title = `${product.name} | Candy Bakes and Pestries`;
   Partials.renderWhatsApp(`Hi! I'm interested in the ${product.name} (${window.location.href}).`);
   document
     .querySelector('meta[name="description"]')
@@ -57,10 +57,12 @@
        </div>`
     : '';
 
+  const productImages = product.images?.length ? product.images : [{ url: product.imageUrl }];
   area.innerHTML = `
     <div class="product-layout">
       <div class="product-photo">
-        <img src="${escapeHtml(product.imageUrl)}" alt="${escapeHtml(product.name)}">
+        <img id="mainProductImage" src="${escapeHtml(productImages[0].url)}" alt="${escapeHtml(product.name)}">
+        ${productImages.length > 1 ? `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">${productImages.map((image, index) => `<button type="button" class="product-thumb" data-image-index="${index}" aria-label="View image ${index + 1}"><img src="${escapeHtml(image.url)}" alt=""></button>`).join('')}</div>` : ''}
       </div>
       <div>
         <h1>${escapeHtml(product.name)}</h1>
@@ -106,6 +108,12 @@
   const form = document.getElementById('customiseForm');
   const qtyInput = document.getElementById('quantity');
   const messageInput = document.getElementById('icingMessage');
+
+  area.querySelectorAll('[data-image-index]').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.getElementById('mainProductImage').src = productImages[button.dataset.imageIndex].url;
+    });
+  });
 
   function selection() {
     const sizeEl = form.querySelector('input[name="size"]:checked');

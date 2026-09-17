@@ -1,18 +1,12 @@
 // partials.js — injects the shared header and footer so the markup lives
 // in one place rather than being copy-pasted across every page.
 
-const LOGO_SVG = `
-  <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <rect x="6" y="18" width="28" height="15" rx="3" fill="#C4265E"/>
-    <rect x="6" y="14" width="28" height="6" rx="3" fill="#F7D9E3"/>
-    <rect x="18.5" y="5" width="3" height="9" rx="1.5" fill="#F5C542"/>
-    <circle cx="20" cy="4" r="2.6" fill="#F5C542"/>
-  </svg>`;
+const LOGO_IMAGE = '/images/new%20logo%20(2).jpg';
 
 // Edit this to your real WhatsApp number: country code + number, digits
 // only (no +, spaces or dashes). Everything WhatsApp-related below reads
 // from this one place.
-const WHATSAPP_NUMBER = '256700000000';
+const WHATSAPP_NUMBER = '0709992587';
 
 function whatsappUrl(message) {
   const base = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -22,11 +16,11 @@ function whatsappUrl(message) {
 // Edit these to your real profiles. Leave a value as '#' to hide that icon
 // (see the filter in the social row below).
 const SOCIAL_LINKS = {
-  instagram: 'https://instagram.com/sugarhousebakery',
-  facebook: 'https://facebook.com/sugarhousebakery',
-  tiktok: 'https://tiktok.com/@sugarhousebakery',
+  instagram: 'https://instagram.com/candybakesandpestries',
+  facebook: 'https://facebook.com/candybakesandpestries',
+  tiktok: 'https://tiktok.com/@candybakesandpestries',
   whatsapp: whatsappUrl(),
-  twitter: 'https://x.com/sugarhousebakery',
+  twitter: 'https://x.com/candybakesandpestries',
 };
 
 const SOCIAL_ICONS = {
@@ -46,7 +40,7 @@ function renderHeader(active) {
   mount.outerHTML = `
     <header class="site-header">
       <div class="header-inner">
-        <a href="/" class="logo">${LOGO_SVG} Sugarhouse</a>
+        <a href="/" class="logo"><img src="${LOGO_IMAGE}" alt="Candy Bakes and Pestries"></a>
         <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
         <nav class="nav">
           ${link('/', 'Home', 'home')}
@@ -76,8 +70,8 @@ function renderFooter() {
       <div class="wrap">
         <div class="footer-grid">
           <div>
-            <div class="logo">Sugarhouse</div>
-            <p>A small kitchen in Bukoto making birthday cakes, wedding cakes and cupcakes to order.</p>
+            <div class="logo"><img src="${LOGO_IMAGE}" alt="Candy Bakes and Pestries"></div>
+            <p>A bakery in Boston creating custom cakes, pastries, and celebration treats to order.</p>
             ${socialHtml ? `<div class="social-row">${socialHtml}</div>` : ''}
           </div>
           <div>
@@ -92,19 +86,19 @@ function renderFooter() {
           <div>
             <h4>Get in touch</h4>
             <ul>
-              <li><a href="tel:+256700000000">+256 700 000 000</a></li>
-              <li><a href="mailto:orders@sugarhouse.example">orders@sugarhouse.example</a></li>
-              <li>Plot 14, Bukoto Street, Kampala</li>
+              <li><a href="tel:0709992587">070 999 2587</a></li>
+              <li><a href="mailto:akellonoeline05@gmail.com">akellonoeline05@gmail.com</a></li>
+              <li>Boston</li>
               <li>Tue–Sat, 9am–6pm</li>
             </ul>
           </div>
         </div>
         <div class="footer-base">
-          <span>&copy; <span id="year"></span> Sugarhouse Bakery</span>
+          <span>&copy; <span id="year"></span> Candy Bakes and Pestries</span>
           <span class="footer-links">
             <a href="/terms">Terms &amp; Conditions</a>
             <span aria-hidden="true">·</span>
-            <span>Baked in Kampala</span>
+            <span>Baked in Boston</span>
           </span>
         </div>
       </div>

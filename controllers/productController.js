@@ -68,13 +68,13 @@ async function listAllProducts(req, res) {
   }
 }
 
-// POST /api/admin/products  (multipart/form-data, field name: "image")
+// POST /api/admin/products  (multipart/form-data, field name: "images")
 async function createProduct(req, res) {
-  let uploaded = null;
+  let uploaded = [];
 
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: 'Add a photo of the cake.' });
+    if (!req.files?.length) {
+      return res.status(400).json({ error: 'Add at least one photo of the cake.' });
     }
     if (!isConfigured()) {
       return res.status(503).json({
@@ -82,7 +82,7 @@ async function createProduct(req, res) {
       });
     }
 
-    uploaded = await uploadBuffer(req.file.buffer);
+    uploaded = await Promise.all(req.files.map((file) => uploadBuffer(file.buffer)));
 
     const product = await Product.create({
       name: req.body.name,
@@ -94,14 +94,15 @@ async function createProduct(req, res) {
       leadTimeDays: req.body.leadTimeDays ? Number(req.body.leadTimeDays) : 3,
       available: req.body.available !== 'false',
       featured: req.body.featured === 'true',
-      imageUrl: uploaded.secure_url,
-      imagePublicId: uploaded.public_id,
+      imageUrl: uploaded[0].secure_url,
+      imagePublicId: uploaded[0].public_id,
+      images: uploaded.map((image) => ({ url: image.secure_url, publicId: image.public_id })),
     });
 
     res.status(201).json({ product });
   } catch (err) {
     // If saving failed after the image went up, don't leave it orphaned.
-    if (uploaded?.public_id) await deleteImage(uploaded.public_id);
+    await Promise.all(uploaded.map((image) => deleteImage(image.public_id)));
 
     if (err.name === 'ValidationError') {
       return res.status(400).json({ error: 'Please check the highlighted fields.', fieldErrors: fieldErrors(err) });
@@ -113,21 +114,27 @@ async function createProduct(req, res) {
 
 // PUT /api/admin/products/:id — image is optional on update
 async function updateProduct(req, res) {
-  let uploaded = null;
+  let uploaded = [];
 
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ error: 'That cake no longer exists.' });
 
-    const previousImageId = product.imagePublicId;
+    const existingImages = product.images?.length
+      ? product.images.map((image) => ({ url: image.url, publicId: image.publicId }))
+      : [{ url: product.imageUrl, publicId: product.imagePublicId }];
 
-    if (req.file) {
+    if (req.files?.length) {
       if (!isConfigured()) {
         return res.status(503).json({ error: 'Image uploads are not set up yet.' });
       }
-      uploaded = await uploadBuffer(req.file.buffer);
-      product.imageUrl = uploaded.secure_url;
-      product.imagePublicId = uploaded.public_id;
+      uploaded = await Promise.all(req.files.map((file) => uploadBuffer(file.buffer)));
+      const newImages = uploaded.map((image) => ({ url: image.secure_url, publicId: image.public_id }));
+      product.images = [...existingImages, ...newImages];
+      product.imageUrl = product.images[0].url;
+      product.imagePublicId = product.images[0].publicId;
+    } else if (!product.images?.length) {
+      product.images = existingImages;
     }
 
     if (req.body.name !== undefined) product.name = req.body.name;
@@ -143,11 +150,9 @@ async function updateProduct(req, res) {
     await product.save();
 
     // Only bin the old image once the new record is safely saved.
-    if (uploaded && previousImageId) await deleteImage(previousImageId);
-
     res.json({ product });
   } catch (err) {
-    if (uploaded?.public_id) await deleteImage(uploaded.public_id);
+    await Promise.all(uploaded.map((image) => deleteImage(image.public_id)));
 
     if (err.name === 'ValidationError') {
       return res.status(400).json({ error: 'Please check the highlighted fields.', fieldErrors: fieldErrors(err) });
@@ -180,7 +185,10 @@ async function deleteProduct(req, res) {
     if (!product) return res.status(404).json({ error: 'That cake no longer exists.' });
 
     await product.deleteOne();
-    await deleteImage(product.imagePublicId);
+    const imageIds = product.images?.length
+      ? product.images.map((image) => image.publicId)
+      : [product.imagePublicId];
+    await Promise.all(imageIds.map((publicId) => deleteImage(publicId)));
 
     res.json({ ok: true });
   } catch (err) {

@@ -114,7 +114,7 @@ check('every admin route sits behind requireAuth', hasGuard);
 /* ---------- 4. Upload constraints ---------- */
 const { upload } = require('./middleware/upload');
 check('upload caps file size at 8MB', upload.limits.fileSize === 8*1024*1024);
-check('upload allows only one file', upload.limits.files === 1);
+check('upload allows up to eight files', upload.limits.files === 8);
 
 console.log('\n' + results.join('\n'));
 const failed = results.filter(r => r.startsWith('FAIL')).length;

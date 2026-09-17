@@ -13,8 +13,8 @@ router.get('/stats', orderCtrl.getStats);
 
 // Products — staff can view, only admins can change the catalog.
 router.get('/products', productCtrl.listAllProducts);
-router.post('/products', requireRole('admin'), upload.single('image'), handleUploadErrors, productCtrl.createProduct);
-router.put('/products/:id', requireRole('admin'), upload.single('image'), handleUploadErrors, productCtrl.updateProduct);
+router.post('/products', requireRole('admin'), upload.array('images', 8), handleUploadErrors, productCtrl.createProduct);
+router.put('/products/:id', requireRole('admin'), upload.array('images', 8), handleUploadErrors, productCtrl.updateProduct);
 router.patch('/products/:id/availability', requireRole('admin'), productCtrl.toggleAvailability);
 router.delete('/products/:id', requireRole('admin'), productCtrl.deleteProduct);
 

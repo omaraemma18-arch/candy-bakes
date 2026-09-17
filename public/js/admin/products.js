@@ -13,7 +13,7 @@
 
   let products = [];
   let editingId = null;
-  let selectedFile = null;
+  let selectedFiles = [];
 
   function flash(message, kind = 'success') {
     pageAlert.textContent = message;
@@ -35,10 +35,10 @@
         <div class="field">
           <span class="field-label">Photo</span>
           <label class="dropzone" id="dropzone">
-            <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp,image/heic" capture="environment">
+            <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp,image/heic" capture="environment" multiple>
             <div class="dropzone-prompt" id="dropPrompt">
-              <strong>Choose a photo</strong> or drag one here<br>
-              <span style="font-size:.84rem;">JPG, PNG or WEBP — up to 8MB</span>
+              <strong>Choose photos</strong> or drag them here<br>
+              <span style="font-size:.84rem;">Up to 8 JPG, PNG or WEBP images — 8MB each</span>
             </div>
           </label>
           <div id="previewArea" style="margin-top:12px;"></div>
@@ -122,7 +122,7 @@
 
   function openModal(product) {
     editingId = product ? product._id : null;
-    selectedFile = null;
+    selectedFiles = [];
     modalAlert.classList.remove('show');
     form.querySelectorAll('.field').forEach((f) => f.classList.remove('invalid'));
     modal.querySelector('#imageError').style.display = 'none';
@@ -140,11 +140,12 @@
     sizeRows.innerHTML = '';
     (product?.sizes || []).forEach((s) => addSizeRow(s.label, s.priceModifier));
 
+    const existingImages = product?.images?.length ? product.images : (product ? [{ url: product.imageUrl }] : []);
     previewArea.innerHTML = product
-      ? `<div class="preview-wrap"><img src="${escapeHtml(product.imageUrl)}" alt=""></div>
-         <p style="font-size:.84rem;color:var(--muted);margin:8px 0 0;">Choose a new photo only if you want to replace this one.</p>`
+      ? `<div class="preview-wrap" style="display:flex;gap:8px;flex-wrap:wrap;">${existingImages.map((image) => `<img src="${escapeHtml(image.url)}" alt="" style="width:96px;height:96px;object-fit:cover;">`).join('')}</div>
+         <p style="font-size:.84rem;color:var(--muted);margin:8px 0 0;">Choose more photos to add them to this product.</p>`
       : '';
-    dropPrompt.style.display = product ? 'none' : 'block';
+    dropPrompt.style.display = 'block';
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -154,7 +155,7 @@
     modal.classList.remove('open');
     document.body.style.overflow = '';
     form.reset();
-    selectedFile = null;
+    selectedFiles = [];
   }
 
   modal.querySelector('#cancelBtn').addEventListener('click', closeModal);
@@ -175,40 +176,33 @@
   modal.querySelector('#addSizeBtn').addEventListener('click', () => addSizeRow());
 
   /* ---------------- Image handling ---------------- */
-  function showPreview(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      previewArea.innerHTML = `
-        <div class="preview-wrap">
-          <img src="${e.target.result}" alt="Preview of the cake photo">
-          <button type="button" class="preview-clear" id="clearPreview" aria-label="Remove photo">×</button>
-        </div>`;
+  function showPreview(files) {
+    const previews = files.map((file) => new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(`<img src="${e.target.result}" alt="Preview of ${escapeHtml(file.name)}" style="width:96px;height:96px;object-fit:cover;">`);
+      reader.readAsDataURL(file);
+    }));
+    Promise.all(previews).then((html) => {
+      previewArea.innerHTML = `<div class="preview-wrap" style="display:flex;gap:8px;flex-wrap:wrap;">${html.join('')}</div>`;
       dropPrompt.style.display = 'none';
-      previewArea.querySelector('#clearPreview').addEventListener('click', (ev) => {
-        ev.preventDefault();
-        selectedFile = null;
-        imageInput.value = '';
-        previewArea.innerHTML = '';
-        dropPrompt.style.display = 'block';
-      });
-    };
-    reader.readAsDataURL(file);
+    });
   }
 
-  function acceptFile(file) {
-    if (!file) return;
-    if (file.size > 8 * 1024 * 1024) {
-      modalAlert.textContent = 'That image is over 8MB. Try a smaller one.';
+  function acceptFiles(fileList) {
+    const files = Array.from(fileList || []);
+    if (!files.length) return;
+    if (files.length > 8 || files.some((file) => file.size > 8 * 1024 * 1024)) {
+      modalAlert.textContent = 'Choose up to 8 images, each no larger than 8MB.';
       modalAlert.classList.add('show');
       return;
     }
-    selectedFile = file;
+    selectedFiles = files;
     modalAlert.classList.remove('show');
     modal.querySelector('#imageError').style.display = 'none';
-    showPreview(file);
+    showPreview(files);
   }
 
-  imageInput.addEventListener('change', () => acceptFile(imageInput.files[0]));
+  imageInput.addEventListener('change', () => acceptFiles(imageInput.files));
 
   ['dragenter', 'dragover'].forEach((evt) =>
     dropzone.addEventListener(evt, (e) => {
@@ -222,7 +216,7 @@
       dropzone.classList.remove('dragover');
     })
   );
-  dropzone.addEventListener('drop', (e) => acceptFile(e.dataTransfer.files[0]));
+  dropzone.addEventListener('drop', (e) => acceptFiles(e.dataTransfer.files));
 
   /* ---------------- Save ---------------- */
   form.addEventListener('input', (e) => {
@@ -246,7 +240,7 @@
     invalid('description', description.length < 5);
     invalid('basePrice', basePrice === '' || Number(basePrice) < 0);
 
-    if (!editingId && !selectedFile) {
+    if (!editingId && !selectedFiles.length) {
       modal.querySelector('#imageError').style.display = 'block';
       ok = false;
     }
@@ -272,11 +266,11 @@
     fd.append('flavours', JSON.stringify(flavours));
     fd.append('available', modal.querySelector('#pAvailable').checked);
     fd.append('featured', modal.querySelector('#pFeatured').checked);
-    if (selectedFile) fd.append('image', selectedFile);
+    selectedFiles.forEach((file) => fd.append('images', file));
 
     const saveBtn = modal.querySelector('#saveBtn');
     saveBtn.disabled = true;
-    saveBtn.textContent = selectedFile ? 'Uploading photo…' : 'Saving…';
+    saveBtn.textContent = selectedFiles.length ? 'Uploading photos…' : 'Saving…';
 
     try {
       if (editingId) {

@@ -38,7 +38,15 @@ const productSchema = new mongoose.Schema(
     flavours: { type: [String], default: [] },
 
     imageUrl: { type: String, required: [true, 'A photo is required.'] },
-    imagePublicId: { type: String }, // Cloudinary id, so we can delete it later
+    imagePublicId: { type: String }, // Cloudinary id for the primary image
+    images: {
+      type: [{
+        _id: false,
+        url: { type: String, required: true },
+        publicId: { type: String },
+      }],
+      default: [],
+    },
 
     available: { type: Boolean, default: true, index: true },
     leadTimeDays: { type: Number, default: 3, min: 0 },
