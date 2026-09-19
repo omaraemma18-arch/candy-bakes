@@ -47,6 +47,7 @@ function renderHeader(active) {
           ${link('/menu', 'Our cakes', 'menu')}
           ${link('/#how', 'How ordering works', 'how')}
           ${link('/#visit', 'Visit us', 'visit')}
+          <a href="${whatsappUrl('Hi! I want to order a cake.')}" class="nav-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp 070 999 2587</a>
           <a href="/cart" class="cart-link">Basket <span class="cart-count">0</span></a>
         </nav>
       </div>

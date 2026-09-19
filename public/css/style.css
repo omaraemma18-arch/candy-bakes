@@ -82,6 +82,15 @@ p { margin: 0 0 1em; max-width: 68ch; }
 }
 .nav a:hover, .nav a.active { color: var(--raspberry); border-bottom-color: var(--raspberry); }
 
+.nav-whatsapp {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #25D366; color: #fff !important;
+  padding: 9px 18px; border-radius: 999px;
+  font-size: .9rem; font-weight: 700; border: none !important;
+  white-space: nowrap; flex-shrink: 0; line-height: 1.2;
+  box-shadow: 0 8px 18px rgba(37, 211, 102, .2);
+}
+.nav-whatsapp:hover { background: #1fbf5d; }
 .cart-link {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--plum); color: #fff !important;
