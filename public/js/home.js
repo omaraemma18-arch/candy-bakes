@@ -69,7 +69,7 @@
         <div class="hero-slide active" style="background-image: linear-gradient(120deg, rgba(28,17,29,.8), rgba(59,30,55,.45)), url('${slide.image}');">
           <div class="hero-inner">
             <div class="hero-copy">
-              <p class="hero-kicker">Candy Bakes and Pastries</p>
+              <p class="hero-kicker">Candycakes</p>
               <h1>${escapeHtml(slide.title)}</h1>
               <p class="hero-subtitle">${escapeHtml(slide.text)}</p>
               <div class="hero-actions">

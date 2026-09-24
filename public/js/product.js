@@ -28,7 +28,7 @@
     return;
   }
 
-  document.title = `${product.name} | Candy Bakes and Pestries`;
+  document.title = `${product.name} | Candycakes`;
   Partials.renderWhatsApp(`Hi! I'm interested in the ${product.name} (${window.location.href}).`);
   document
     .querySelector('meta[name="description"]')

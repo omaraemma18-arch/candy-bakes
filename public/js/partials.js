@@ -1,7 +1,8 @@
 // partials.js — injects the shared header and footer so the markup lives
 // in one place rather than being copy-pasted across every page.
 
-const LOGO_IMAGE = '/images/new%20logo%20(2).jpg';
+const BRAND_NAME = 'Candycakes';
+const LOGO_IMAGE = '/images/candycakes-logo.svg';
 
 // Edit this to your real WhatsApp number: country code + number, digits
 // only (no +, spaces or dashes). Everything WhatsApp-related below reads
@@ -40,7 +41,7 @@ function renderHeader(active) {
   mount.outerHTML = `
     <header class="site-header">
       <div class="header-inner">
-        <a href="/" class="logo"><img src="${LOGO_IMAGE}" alt="Candy Bakes and Pestries"></a>
+        <a href="/" class="logo"><img src="${LOGO_IMAGE}" alt="${BRAND_NAME}"></a>
         <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
         <nav class="nav">
           ${link('/', 'Home', 'home')}
@@ -71,7 +72,7 @@ function renderFooter() {
       <div class="wrap">
         <div class="footer-grid">
           <div>
-            <div class="logo"><img src="${LOGO_IMAGE}" alt="Candy Bakes and Pestries"></div>
+            <div class="logo"><img src="${LOGO_IMAGE}" alt="${BRAND_NAME}"></div>
             <p>A bakery in Boston creating custom cakes, pastries, and celebration treats to order.</p>
             ${socialHtml ? `<div class="social-row">${socialHtml}</div>` : ''}
           </div>
@@ -95,7 +96,7 @@ function renderFooter() {
           </div>
         </div>
         <div class="footer-base">
-          <span>&copy; <span id="year"></span> Candy Bakes and Pestries</span>
+          <span>&copy; <span id="year"></span> ${BRAND_NAME}</span>
           <span class="footer-links">
             <a href="/terms">Terms &amp; Conditions</a>
             <span aria-hidden="true">·</span>
