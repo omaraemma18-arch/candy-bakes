@@ -48,7 +48,7 @@ function renderHeader(active) {
           ${link('/menu', 'Our cakes', 'menu')}
           ${link('/#how', 'How ordering works', 'how')}
           ${link('/#visit', 'Visit us', 'visit')}
-          <a href="${whatsappUrl('Hi! I want to order a cake.')}" class="nav-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp 070 999 2587</a>
+          <a href="${whatsappUrl('Hi! I want to order a cake.')}" class="nav-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp 256 709 992 587</a>
           <a href="/cart" class="cart-link">Basket <span class="cart-count">0</span></a>
         </nav>
       </div>
@@ -88,7 +88,7 @@ function renderFooter() {
           <div>
             <h4>Get in touch</h4>
             <ul>
-              <li><a href="tel:0709992587">070 999 2587</a></li>
+              <li><a href="tel:256709992587">256 709 992 587</a></li>
               <li><a href="mailto:akellonoeline05@gmail.com">akellonoeline05@gmail.com</a></li>
               <li>Boston</li>
               <li>Tue–Sat, 9am–6pm</li>
