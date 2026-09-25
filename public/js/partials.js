@@ -1,7 +1,7 @@
 // partials.js — injects the shared header and footer so the markup lives
 // in one place rather than being copy-pasted across every page.
 
-const BRAND_NAME = 'Candycakes';
+const BRAND_NAME = 'candycakes';
 const LOGO_IMAGE = '/images/candycakes-logo.svg';
 
 // Edit this to your real WhatsApp number: country code + number, digits
@@ -17,11 +17,11 @@ function whatsappUrl(message) {
 // Edit these to your real profiles. Leave a value as '#' to hide that icon
 // (see the filter in the social row below).
 const SOCIAL_LINKS = {
-  instagram: 'https://instagram.com/candybakesandpestries',
-  facebook: 'https://facebook.com/candybakesandpestries',
-  tiktok: 'https://tiktok.com/@candybakesandpestries',
+  instagram: 'https://instagram.com/candycakes',
+  facebook: 'https://facebook.com/candycakes',
+  tiktok: 'https://tiktok.com/@candycakes',
   whatsapp: whatsappUrl(),
-  twitter: 'https://x.com/candybakesandpestries',
+  twitter: 'https://x.com/candycakes',
 };
 
 const SOCIAL_ICONS = {
