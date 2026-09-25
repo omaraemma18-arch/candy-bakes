@@ -27,7 +27,7 @@ const AdminShell = (function () {
 
     document.getElementById('admin-sidebar').outerHTML = `
       <aside class="admin-sidebar" id="adminSidebar">
-        <div class="logo"><img src="/images/new%20logo%20(2).jpg" alt="Candy Bakes and Pastries"><small>Admin</small></div>
+        <div class="logo"><img src="/images/candycakes-logo.svg" alt="Candycakes"><small>Admin</small></div>
         <nav class="admin-nav">
           ${NAV.map((n) => `<a href="${n.href}"${n.key === activeKey ? ' class="active"' : ''}>${n.label}</a>`).join('')}
           <a href="/" target="_blank" rel="noopener">View shop ↗</a>
