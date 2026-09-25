@@ -7,7 +7,7 @@ const LOGO_IMAGE = '/images/candycakes-logo.svg';
 // Edit this to your real WhatsApp number: country code + number, digits
 // only (no +, spaces or dashes). Everything WhatsApp-related below reads
 // from this one place.
-const WHATSAPP_NUMBER = '0709992587';
+const WHATSAPP_NUMBER = '256709992587';
 
 function whatsappUrl(message) {
   const base = `https://wa.me/${WHATSAPP_NUMBER}`;
